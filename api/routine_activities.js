@@ -18,7 +18,7 @@ routine_activitiesRouter.patch(
       const routineActivity = await getRoutineActivityById({
         id: routineActivityId,
       });
-      const routine = await getRoutineById(routineActivity.routineId);
+      const routine = await getRoutineById(routineActivity);
       if (req.user.id === routine.creatorId) {
         const updatedRoutineActivity = await updateRoutineActivity({
           id: routineActivityId,
@@ -28,8 +28,8 @@ routine_activitiesRouter.patch(
         res.send(updatedRoutineActivity);
       } else {
         next({
-          name: "RoutineActivityUpdateFailed",
-          message: "No permission to edit",
+          name: "RoutineActivityPatchFail",
+          message: "You do not have permission to edit",
         });
       }
     } catch ({ name, message }) {
@@ -53,8 +53,8 @@ routine_activitiesRouter.delete(
         res.send(deletedActivity);
       } else {
         next({
-          name: "RoutineActivityUpdateFailed",
-          message: "No permission to delete",
+          name: "RoutineActivityUpdateFail",
+          message: "You do not have permission to delete",
         });
       }
     } catch ({ name, message }) {

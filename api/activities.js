@@ -44,7 +44,6 @@ activitiesRouter.patch("/:activityId", requireUser, async (req, res, next) => {
 
 activitiesRouter.get("/:activityId/routines", async (req, res, next) => {
   const { id } = req.body;
-  console.log(req.body, "HHHHHHHHHHHHHHHHHH");
   try {
     const routines = await getPublicRoutinesByActivity({ id });
     res.send(routines);
